@@ -59,7 +59,7 @@ void Node(Atom::TCoreVectorBuilder &builder, int64_t id, int64_t count) {
   builder.Push(1L);
   builder.Push(1L);
   builder.Push(NodeIndexId);
-  builder.Push(id);
+  builder.Push(make_tuple(id));
   builder.Push(count);
 }
 

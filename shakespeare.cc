@@ -72,7 +72,7 @@ void Node(Atom::TCoreVectorBuilder &builder, int64_t id, const map<string, strin
   builder.Push(1L);
   builder.Push(1L);
   builder.Push(NodeIndexId);
-  builder.Push(id);
+  builder.Push(make_tuple(id));
   builder.Push(data);
 }
 
