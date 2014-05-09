@@ -56,8 +56,8 @@ using namespace Orly;
 
 */
 
-static const TUuid NodeIndexId(TUuid::Twister);
-static const TUuid EdgeIndexId(TUuid::Twister);
+static const TUuid NodeIndexId(TUuid(TUuid::Twister));
+static const TUuid EdgeIndexId(TUuid(TUuid::Twister));
 
 void Node(Atom::TCoreVectorBuilder &builder,
           int64_t id,
@@ -70,8 +70,10 @@ void Node(Atom::TCoreVectorBuilder &builder,
   builder.Push(NodeIndexId);
   builder.Push(std::make_tuple(id, "id"));
   builder.Push(other_id);
+  builder.Push(NodeIndexId);
   builder.Push(std::make_tuple(id, "name"));
   builder.Push(name);
+  builder.Push(NodeIndexId);
   builder.Push(std::make_tuple(id, "type"));
   builder.Push(type);
 }
@@ -130,7 +132,7 @@ int main(int /*argc*/, char */*argv*/[]) {
   Isa(builder, 3, 8);
   AlcoholPercentage(builder, 3, 10);
   BrewedBy(builder, 3, 6);
-  assert(builder.GetCores().size() == 2UL + edge_count * 6UL + node_count * 10UL);
+  assert(builder.GetCores().size() == 2UL + edge_count * 6UL + node_count * 12UL);
   Io::TBinaryOutputOnlyStream strm(make_shared<Io::TDevice>(open("belgian_beer.bin", O_WRONLY | O_CREAT, 0777)));
   builder.Write(strm);
   return EXIT_SUCCESS;
